@@ -16,14 +16,15 @@ public class PlayerMovement : MonoBehaviour
 
     public Joystick joystik;
 
+    public Animator anim;
 
     Vector3 velocity;
     bool isGrounded;
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask); 
-        if(isGrounded && velocity.y < 0)
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2;
         }
@@ -37,14 +38,23 @@ public class PlayerMovement : MonoBehaviour
         //{
         //    velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         //}
-
+        if (move.x != 0 || move.z != 0)
+        {
+            anim.SetBool("Move", true);
+        }
+        else
+        {
+            anim.SetBool("Move", false);
+        }
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+     
     }
 
     public void Jump()
     {
-        if(isGrounded)
+        if(isGrounded)  
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
