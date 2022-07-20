@@ -4,15 +4,44 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Transform itemsParent;
+    public GameObject inventoryUI;
+    // Implement Crafting
+    Inventory inventory;
+    InventorySlot[] slots;
     void Start()
     {
-        
+        inventory = Inventory.instance;
+        inventory.onItemChangedCallBack += UpdateUI;
+        slots = itemsParent.GetComponentsInChildren<InventorySlot>();
+    }
+     void UpdateUI()
+    {
+        for(int i = 0; i < slots.Length; i++)
+        {
+            if(i < inventory.items.Count)
+            {
+                slots[i].AddItem(inventory.items[i]);
+            }
+            else
+            {
+                slots[i].ClearSlot();
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ClickInventoryButton()
     {
-        
+        if(inventoryUI.activeSelf)
+        {
+            inventoryUI.SetActive(false);
+        }
+        else
+        {
+            UpdateUI();
+            inventoryUI.SetActive(true);
+        }
     }
+
+
 }

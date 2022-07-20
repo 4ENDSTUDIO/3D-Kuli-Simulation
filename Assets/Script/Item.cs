@@ -20,7 +20,7 @@ public class Item : ScriptableObject
 
     public void RemoveFromInventory()
     {
-        //ImplementInventory
+        Inventory.instance.Remove(this);
     }
   
 }

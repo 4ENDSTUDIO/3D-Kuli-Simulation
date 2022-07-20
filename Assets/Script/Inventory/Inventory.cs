@@ -31,11 +31,11 @@ public class Inventory : MonoBehaviour
         {
             if(items.Count >= space)
             {
-                // make game message
+                GameMessagee.instance.Send("Inventory Full");
                 Debug.Log("Not Enaogh room");
                 return false;
             }
-            // message
+            GameMessagee.instance.Send("+" + item.name);
             items.Add(item);
             if(onItemChangedCallBack  != null)
             {

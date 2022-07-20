@@ -16,6 +16,11 @@ public class ItemPickUp : MonoBehaviour
     void PickUp()
     {
         buttonPickUp.interactable = false;
+        bool wasPickedUp = Inventory.instance.Add(item);
+        if(wasPickedUp)
+        {
+            Destroy(parent);
+        }
     }
 
     private void OnTriggerStay(Collider other)
